@@ -6,7 +6,7 @@
 
   [正しい例]
     App
-    SomeComponent
+    SomeComponent（パスカルケース、推奨）
   
   [エラーとなる例]
     app
@@ -17,15 +17,20 @@
     Some_Component
  */
 import React from "react";
+import ColofulMessage from "./components/ColorfulMessage";
 
 const App = () => {
+  const onClickButton = () => alert();
+
   return (
     // javascriptの中にhtmlを書く　＝ JSX記法
     // jsx記法は一つのタグで囲う必要がある。
     // React.Fragmentを使うと一つのタグで囲う必要がなくなる
     <>
-      <h1>こんにちは！</h1>
-      <p>お元気ですか？</p>
+      <h1 style={{ color: "red" }}>こんにちは！</h1>
+      <ColofulMessage color="blue">お元気ですか？</ColofulMessage>
+      <ColofulMessage color="pink">元気です！</ColofulMessage>
+      <button onClick={onClickButton}>ボタン</button>
     </>
   );
 };
