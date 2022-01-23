@@ -16,17 +16,32 @@
     Some_component
     Some_Component
  */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ColofulMessage from "./components/ColorfulMessage";
 
 const App = () => {
+  console.log("最初");
+  // num: stateとして使用する変数名
+  // setNum: stateを変更するための関数
+  const [num, setNum] = useState(0);
+  const [faceShowFlag, setFaceShowFlag] = useState(true);
+
   const onClickCountUp = () => {
     setNum(num + 1);
   };
 
-  // num: stateとして使用する変数名
-  // setNum: stateを変更するための関数
-  const [num, setNum] = useState(0);
+  const onClickSwitchShowFlag = () => {
+    setFaceShowFlag(!faceShowFlag);
+  };
+
+  useEffect(() => {
+    if (num > 0 && num % 3 === 0) {
+      faceShowFlag || setFaceShowFlag(true);
+    } else {
+      faceShowFlag && setFaceShowFlag(false);
+    }
+    // eslint-disable-next-line  react-hooks/exhaustive-deps
+  }, [num]); // numを監視する->numが変更された時だけこのuseEffectを走らせる
 
   return (
     // javascriptの中にhtmlを書く　＝ JSX記法
@@ -37,10 +52,16 @@ const App = () => {
       <ColofulMessage color="blue">お元気ですか？</ColofulMessage>
       <ColofulMessage color="pink">元気です！</ColofulMessage>
       <button onClick={onClickCountUp}>Count Up</button>
+      <br />
+      <button onClick={onClickSwitchShowFlag}>on / off</button>
       <p>{num}</p>
+      {/* &&の左の要素がtrueの時、右の要素を返す */}
+      {faceShowFlag && <p>(^o^)</p>}
     </>
   );
 };
 
 // 他のファイルでも使えるようにする
 export default App;
+
+// onClickを押すと再レンダリング＝画面を再描画する
