@@ -16,11 +16,17 @@
     Some_component
     Some_Component
  */
-import React from "react";
+import React, { useState } from "react";
 import ColofulMessage from "./components/ColorfulMessage";
 
 const App = () => {
-  const onClickButton = () => alert();
+  const onClickCountUp = () => {
+    setNum(num + 1);
+  };
+
+  // num: stateとして使用する変数名
+  // setNum: stateを変更するための関数
+  const [num, setNum] = useState(0);
 
   return (
     // javascriptの中にhtmlを書く　＝ JSX記法
@@ -30,7 +36,8 @@ const App = () => {
       <h1 style={{ color: "red" }}>こんにちは！</h1>
       <ColofulMessage color="blue">お元気ですか？</ColofulMessage>
       <ColofulMessage color="pink">元気です！</ColofulMessage>
-      <button onClick={onClickButton}>ボタン</button>
+      <button onClick={onClickCountUp}>Count Up</button>
+      <p>{num}</p>
     </>
   );
 };
